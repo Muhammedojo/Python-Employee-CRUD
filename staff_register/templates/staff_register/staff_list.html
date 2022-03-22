@@ -1,0 +1,43 @@
+{% extends "staff_register/base.html" %}
+
+{% block content %}
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td>Phone</td>
+            <td>Position</td>
+            <td>Actions</td>
+            <td>
+                <a href="{% url 'staff_insert'%}" class="btn btn-outline-success">
+                    <i class="fa fa-user fa-lg" title="Add Staff"></i>
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+         {%for staff in staff_list %}
+             <tr>
+                <td>{{staff.fullname}}</td>
+                <td>{{staff.phone}}</td>
+                <td>{{staff.position}}</td>
+                <td>
+                    <a href="{% url 'staff_update' staff.id %}" class="btn text-secondary px-0">
+                        <i class="fa fa-edit fa-lg" title="Edit"></i>
+                    </a>
+                    <form action="{% url 'staff_delete' staff.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button class="submit" class="btn">
+                                <i class="fa fa-trash text-danger float-right" title="Delete">
+
+                                </i>
+                            </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
